@@ -4,6 +4,8 @@ namespace ClubeDaLeitura_2_0.ConsoleApp
 {
     internal class Program
     {
+        static Notificador notificador = new Notificador();
+        static Menu menuPrincipal = new Menu();
         static void Main(string[] args)
         {
             Menu menu = new Menu();
@@ -18,35 +20,42 @@ namespace ClubeDaLeitura_2_0.ConsoleApp
             {
 
                 Console.Clear();
-                Console.WriteLine("Clube da Leitura!");
-                Console.WriteLine("Digite 1 para cadastrar uma nova caixa");
-                Console.WriteLine("Digite 2 para cadastrar uma revista");
-                Console.WriteLine("Digite 3 para cadastrar um novo amigo");
-                Console.WriteLine("Digite 4 para fazer um emprestimo a um amigo");
-                Console.WriteLine("Digite 5 para visualizar caixas");
-                Console.WriteLine("Digite 6 para visualizar amigos");
-                Console.WriteLine("Digite 7 para visualizar os emprestimos");
+                opcao = OpçãoDeMenu("Principal","Clube da Leitura!2.0\nMENU PRINCIPAL:\n");
 
-                Console.WriteLine("Digite s para sair");
-                opcao = Console.ReadLine();
 
                 switch (opcao)
                 {
-
+                    
                     case "1":
+                        string opcaoMenuCaixa = OpçãoDeMenu("Gerenciamento", "GERENCIAMENTO DE CAIXA:");
+                        if(opcaoMenuCaixa == "1")
                         menu.CadastrarCaixa(caixasCadastrar);
+                        if (opcaoMenuCaixa == "2")
+                            menu.VisualizarCaixas(caixasCadastrar);
                         break;
 
                     case "2":
-                        menu.RevistaCadastrar(caixasCadastrar);
+                        string opcaoMenuRevista = OpçãoDeMenu("Gerenciamento", "GERENCIAMENTO DE REVISTA:");
+                        if (opcaoMenuRevista == "1")
+                            menu.RevistaCadastrar(caixasCadastrar);
+                        if (opcaoMenuRevista == "2")
+                            menu.VisualizarCaixas(caixasCadastrar);
                         break;
 
                     case "3":
-                        menu.AmigoCadastrar(amigos);
+                        string opcaoMenuAmigos = OpçãoDeMenu("Gerenciamento", "GERENCIAMENTO DE AMIGO:");
+                        if (opcaoMenuAmigos == "1")
+                            menu.AmigoCadastrar(amigos);
+                        if (opcaoMenuAmigos == "2")
+                            menu.VisualizarAmigos(amigos);
                         break;
 
                     case "4":
-                        menu.Emprestar(emprestimos, amigos, caixasCadastrar);
+                        string opcaoMenuEmprestimo = OpçãoDeMenu("Gerenciamento", "GERENCIAMENTO DE EMPRESTIMO:");
+                        if (opcaoMenuEmprestimo == "1")
+                            menu.Emprestar(emprestimos, amigos, caixasCadastrar);
+                        if (opcaoMenuEmprestimo == "2")
+                            menu.VisualizarEmprestimo(emprestimos);
                         break;
 
                     case "5":
@@ -76,7 +85,31 @@ namespace ClubeDaLeitura_2_0.ConsoleApp
 
         }
 
+        private  static string OpçãoDeMenu(string menu, string titulo )
+        {
+            if (menu == "Principal") { 
+            Console.WriteLine(titulo);
+            Console.WriteLine("Digite 1 para gerenciar uma nova caixa");
+            Console.WriteLine("Digite 2 para gerenciar uma revista");
+            Console.WriteLine("Digite 3 para gerenciar um novo amigo");
+            Console.WriteLine("Digite 4 para fazer um emprestimo a um amigo");
+            Console.WriteLine("Digite s para sair");
+                string opcao = Console.ReadLine();
+                return opcao;
+        }
+            if(menu == "Gerenciamento")
+            {
+                Console.WriteLine(titulo);
+                Console.WriteLine("Digite 1 para inserir:");
+                Console.WriteLine("Digite 2 para editar:");
+                Console.WriteLine("Digite 3 para excluir:");
+                Console.WriteLine("Digite s para sair:");
+                string opcao = Console.ReadLine();
+                return opcao;
+            }
 
+            return "volta";
+        }
     }
 }
 
